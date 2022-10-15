@@ -1791,7 +1791,7 @@ setup(void)
 	if (!drw_fontset_create(drw, fonts, LENGTH(fonts)))
 		die("no fonts could be loaded.");
 	lrpad = drw->fonts->h;
-	bh = drw->fonts->h + 2;
+	bh = user_bh ? user_bh : drw->fonts->h + 2;
 	sp = sidepad;
 	vp = (topbar == 1) ? vertpad : - vertpad;
 	updategeom();
@@ -2333,14 +2333,15 @@ updatesystray(int updatebar)
 	XWindowChanges wc;
 	Client *i;
 	Monitor *m = systraytomon(NULL);
-	unsigned int x = m->mx + m->mw - sp;
 	unsigned int w = 1, xpad = 0, ypad = 0;
-  unsigned int y = m->by + vp;
   unsigned int sw = TEXTW(stext) - lrpad + systrayspacing;
 	#if BARPADDING_PATCH
 	xpad = sp;
 	ypad = vp;
 	#endif // BARPADDING_PATCH
+
+  unsigned int x = m->mx + m->mw - sp;
+  unsigned int y = m->by + vp - 0.5;
 
 	if (!showsystray)
 		return;
@@ -2393,9 +2394,9 @@ updatesystray(int updatebar)
 	}
 	w = w ? w + systrayspacing : 1;
 	x -= w;
-	XMoveResizeWindow(dpy, systray->win, x - xpad, m->by + ypad, w, bh);
-	wc.x = x - xpad;
-	wc.y = m->by + ypad;
+	XMoveResizeWindow(dpy, systray->win, x, y, w, bh);
+	wc.x = x;
+	wc.y = y;
 	wc.width = w;
 	wc.height = bh;
 	wc.stack_mode = Above; wc.sibling = m->barwin;
