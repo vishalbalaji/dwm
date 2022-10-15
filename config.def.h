@@ -62,7 +62,7 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4" };
+static const char *tags[] = { "1: ", "2: ", "3: ", "4: " };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -70,21 +70,35 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "firefox",         "Navigator",           NULL,           2,        0, -1 },
+	/* { "scratchpad",      "scratchpad",   "scratchpad",   SPTAG(0), 1, -1 }, */
+	{ "kitty",           "kitty",        "nmtui",        0,        1, -1 },
+	{ "kitty",           "kitty",        "alsamixer",    0,        1, -1 },
+	{ "St",              "st",           "nmtui",        0,        1, -1 },
+	{ "kitty",           "kitty",        "alsamixer",    0,        1, -1 },
+	{ "St",              "st",           "alsamixer",    0,        1, -1 },
+	{ "Gucharmap",       NULL,           NULL,           0,        1, -1 },
+	{ "Pcmanfm",         NULL,           NULL,           0,        1, -1 },
+	{ "Nitrogen",        NULL,           NULL,           0,        1, -1 },
+	{ "Blueman-manager", NULL,           NULL,           0,        1, -1 },
+	{ "Lxappearance",    "lxappearance", NULL,           0,        1, -1 },
+	{ "Yad",             "yad",          "Attach files", 0,        1, -1 },
+	{ "Yad",             "yad",          "Save",         0,        1, -1 },
+	{ "zoom",            "zoom",         "Zoom Meeting", 0,        0, -1 },
+	{ "zoom",            "zoom",         "zoom",         0,        1, -1 },
 };
 
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
-static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
+static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "[]",      tile },    /* first entry is default */
+	{ "[]",      NULL },    /* no layout function means floating behavior */
+	{ "[]",      monocle },
 };
 
 /* key definitions */
