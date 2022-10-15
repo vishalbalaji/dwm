@@ -66,16 +66,16 @@ static const char *const autostart[] = {
 /* tagging */
 static const char *tags[] = { "1: ", "2: ", "3: ", "4: " };
 
-/* typedef struct { */
-/* 	const char *name; */
-/* 	const void *cmd; */
-/* } Sp; */
-/**/
-/* const char *spcmd1[] = {"kitty", "--title", "scratchpad", "--class", "scratchpad", "-o", "initial_window_width=800", "-o", "initial_window_height=530", "-o", "remember_window_size=no", NULL }; */
-/* static Sp scratchpads[] = { */
-/* 	/* name          cmd  */
-/* 	{"scratchpad",      spcmd1}, */
-/* }; */
+typedef struct {
+	const char *name;
+	const void *cmd;
+} Sp;
+
+const char *spcmd1[] = {"kitty", "--title", "scratchpad", "--class", "scratchpad", "-o", "initial_window_width=800", "-o", "initial_window_height=530", "-o", "remember_window_size=no", NULL };
+static Sp scratchpads[] = {
+	/* name          cmd */
+	{"scratchpad",      spcmd1},
+};
 
 static const unsigned int ulinepad	= 5;	/* horizontal padding between the underline and tag */
 static const unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
@@ -89,7 +89,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "firefox",         "Navigator",           NULL,           2,        0, -1 },
-	/* { "scratchpad",      "scratchpad",   "scratchpad",   SPTAG(0), 1, -1 }, */
+	{ "scratchpad",      "scratchpad",   "scratchpad",   SPTAG(0), 1, -1 },
 	{ "kitty",           "kitty",        "nmtui",        0,        1, -1 },
 	{ "kitty",           "kitty",        "alsamixer",    0,        1, -1 },
 	{ "St",              "st",           "nmtui",        0,        1, -1 },
@@ -164,7 +164,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	/* { MODKEY,                       XK_x,      movecenter,     {0} }, */
-	/* { MODKEY,                             XK_grave,  togglescratch,  {.ui = 0 } }, */
+	{ MODKEY,                             XK_grave,  togglescratch,  {.ui = 0 } },
 	{ MODKEY,                             XK_7,      setborderpx,    {.i = -1 } },
 	{ MODKEY,                             XK_8,      setborderpx,    {.i = +1 } },
 	{ MODKEY,                             XK_9,      setborderpx,    {.i = 0 } },
@@ -192,7 +192,7 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button3,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+	{ ClkClientWin,         MODKEY,         Button1,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
