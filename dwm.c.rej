@@ -1,27 +1,32 @@
 --- dwm.c
 +++ dwm.c
-@@ -293,9 +325,10 @@ static void (*handler[LASTEvent]) (XEvent *) = {
- 	[MapRequest] = maprequest,
- 	[MotionNotify] = motionnotify,
- 	[PropertyNotify] = propertynotify,
-+	[ResizeRequest] = resizerequest,
- 	[UnmapNotify] = unmapnotify
- };
--static Atom wmatom[WMLast], netatom[NetLast];
-+static Atom wmatom[WMLast], netatom[NetLast], xatom[XLast];
- static int running = 1;
- static Cur *cursor[CurLast];
- static Clr **scheme;
-@@ -1221,6 +1339,12 @@ maprequest(XEvent *e)
- 	static XWindowAttributes wa;
- 	XMapRequestEvent *ev = &e->xmaprequest;
+@@ -59,7 +59,7 @@
  
-+	Client *i;
-+	if (showsystray && (i = wintosystrayicon(ev->window))) {
-+		sendevent(i->win, netatom[Xembed], StructureNotifyMask, CurrentTime, XEMBED_WINDOW_ACTIVATE, 0, systray->win, XEMBED_EMBEDDED_VERSION);
-+		updatesystray(1);
-+	}
-+
- 	if (!XGetWindowAttributes(dpy, ev->window, &wa))
- 		return;
- 	if (wa.override_redirect)
+ /* enums */
+ enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
+-enum { SchemeNorm, SchemeSel }; /* color schemes */
++enum { SchemeNorm, SchemeSel, SchemeStatus, SchemeTagsSel, SchemeTagsNorm, SchemeInfoSel, SchemeInfoNorm }; /* color schemes */
+ enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
+        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
+        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
+@@ -729,17 +729,17 @@ drawbar(Monitor *m)
+ 		x += w;
+ 	}
+ 	w = blw = TEXTW(m->ltsymbol);
+-	drw_setscheme(drw, scheme[SchemeNorm]);
++	drw_setscheme(drw, scheme[SchemeTagsNorm]);
+ 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+ 
+ 	if ((w = m->ww - tw - x) > bh) {
+ 		if (m->sel) {
+-			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
++			drw_setscheme(drw, scheme[m == selmon ? SchemeInfoSel : SchemeInfoNorm]);
+ 			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
+ 			if (m->sel->isfloating)
+ 				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
+ 		} else {
+-			drw_setscheme(drw, scheme[SchemeNorm]);
++			drw_setscheme(drw, scheme[SchemeInfoNorm]);
+ 			drw_rect(drw, x, 0, w, bh, 1, 1);
+ 		}
+ 	}
