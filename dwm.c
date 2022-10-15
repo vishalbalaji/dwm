@@ -848,6 +848,8 @@ drawbar(Monitor *m)
 	int boxw = drw->fonts->h / 6 + 2;
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
+  int mid = 0;
+  char *windowname;
 
 	if (!m->showbar)
 		return;
@@ -889,14 +891,27 @@ drawbar(Monitor *m)
 
 	if ((w = m->ww - tw - stw - x) > bh) {
 		if (m->sel) {
-      /* fix overflow when window name is bigger than window width */
-			int mid = (m->ww - (int)TEXTW(m->sel->name)) / 2 - x;
-			/* make sure name will not overlap on tags even when it is very long */
-			mid = mid >= lrpad / 2 ? mid : lrpad / 2;
 			drw_setscheme(drw, scheme[m == selmon ? SchemeInfoSel : SchemeInfoNorm]);
-			drw_text(drw, x, 0, w - 2 * sp, bh, mid + lrpad / 2, m->sel->name, 0);
+
+      /* truncate window title */
+      windowname = m->sel->name;
+
+      if (strlen(windowname) > maxtitlelength) {
+        windowname[maxtitlelength + 1 - 3] = 0;
+        strcat(windowname, "...");
+      }
+
+      if (centerwindowname) {
+        /* fix overflow when window name is bigger than window width */
+        mid = (m->ww - (int)TEXTW(m->sel->name)) / 2 - x;
+        /* make sure name will not overlap on tags even when it is very long */
+        mid = mid >= lrpad / 2 ? mid : lrpad / 2;
+      }
+
+      drw_text(drw, x, 0, w - 2 * sp, bh, mid + lrpad / 2, windowname, 0);
+
 			if (m->sel->isfloating)
-				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
+				drw_rect(drw, x + boxs + mid - 5, boxs, boxw, boxw, m->sel->isfixed, 0);
 		} else {
 			drw_setscheme(drw, scheme[SchemeInfoNorm]);
 			drw_rect(drw, x, 0, w - 2 * sp, bh, 1, 1);
