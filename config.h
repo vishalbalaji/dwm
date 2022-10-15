@@ -165,9 +165,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	/* { MODKEY,                       XK_x,      movecenter,     {0} }, */
 	/* { MODKEY,                             XK_grave,  togglescratch,  {.ui = 0 } }, */
-	/* { MODKEY,                             XK_7,      setborderpx,    {.i = -1 } }, */
-	/* { MODKEY,                             XK_8,      setborderpx,    {.i = +1 } }, */
-	/* { MODKEY,                             XK_9,      setborderpx,    {.i = 0 } }, */
+	{ MODKEY,                             XK_7,      setborderpx,    {.i = -1 } },
+	{ MODKEY,                             XK_8,      setborderpx,    {.i = +1 } },
+	{ MODKEY,                             XK_9,      setborderpx,    {.i = 0 } },
 	/* { MODKEY,                       XK_minus,  setgaps,        {.i = -5 } }, */
 	/* { MODKEY,                       XK_equal,  setgaps,        {.i = +5 } }, */
 	/* { MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = GAP_RESET } }, */

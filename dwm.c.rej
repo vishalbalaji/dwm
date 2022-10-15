@@ -1,45 +1,27 @@
---- dwm.c
-+++ dwm.c
-@@ -2126,14 +2138,38 @@ void
- zoom(const Arg *arg)
- {
- 	Client *c = selmon->sel;
-+	Client *at = NULL, *cold, *cprevious = NULL;
+--- dwm.c	2020-05-12 02:17:20.070933833 +0200
++++ dwm.c	2020-05-14 00:17:35.047919771 +0200
+@@ -119,6 +119,7 @@ struct Monitor {
+ 	int by;               /* bar geometry */
+ 	int mx, my, mw, mh;   /* screen size */
+ 	int wx, wy, ww, wh;   /* window area  */
++	unsigned int borderpx;
+ 	unsigned int seltags;
+ 	unsigned int sellt;
+ 	unsigned int tagset[2];
+@@ -639,6 +641,7 @@ createmon(void)
+ 	m->nmaster = nmaster;
+ 	m->showbar = showbar;
+ 	m->topbar = topbar;
++	m->borderpx = borderpx;
+ 	m->lt[0] = &layouts[0];
+ 	m->lt[1] = &layouts[1 % LENGTH(layouts)];
+ 	strncpy(m->ltsymbol, layouts[0].symbol, sizeof m->ltsymbol);
+@@ -1048,7 +1051,7 @@ manage(Window w, XWindowAttributes *wa)
+ 	/* only fix client y-offset, if the client center might cover the bar */
+ 	c->y = MAX(c->y, ((c->mon->by == c->mon->my) && (c->x + (c->w / 2) >= c->mon->wx)
+ 		&& (c->x + (c->w / 2) < c->mon->wx + c->mon->ww)) ? bh : c->mon->my);
+-	c->bw = borderpx;
++	c->bw = c->mon->borderpx;
  
- 	if (!selmon->lt[selmon->sellt]->arrange
- 	|| (selmon->sel && selmon->sel->isfloating))
- 		return;
--	if (c == nexttiled(selmon->clients))
--		if (!c || !(c = nexttiled(c->next)))
--			return;
--	pop(c);
-+	if (c == nexttiled(selmon->clients)) {
-+		at = findbefore(prevzoom);
-+		if (at)
-+			cprevious = nexttiled(at->next);
-+		if (!cprevious || cprevious != prevzoom) {
-+			prevzoom = NULL;
-+			if (!c || !(c = nexttiled(c->next)))
-+				return;
-+		} else
-+			c = cprevious;
-+	}
-+	cold = nexttiled(selmon->clients);
-+	if (c != cold && !at)
-+		at = findbefore(c);
-+	detach(c);
-+	attach(c);
-+	/* swap windows instead of pushing the previous one down */
-+	if (c != cold && at) {
-+		prevzoom = cold;
-+		if (cold && at != cold) {
-+			detach(cold);
-+			cold->next = at->next;
-+			at->next = cold;
-+		}
-+	}
-+	focus(c);
-+	arrange(c->mon);
- }
- 
- int
+ 	wc.border_width = c->bw;
+ 	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
