@@ -2,32 +2,59 @@
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int centerwindowname = 1;       /* 0 means window title is not centered */
+static const unsigned int maxtitlelength = 100;       /* max length for window title */
+/* static const Gap default_gap        = {.isgap = 1, .realgap = 10, .gappx = 10}; */
 static const unsigned int snap      = 32;       /* snap pixel */
+
+/* bar */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const unsigned int systrayonleft = 1;
+static const int user_bh            = 28;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+static const int vertpad            = 5;       /* vertical padding of bar */
+static const int sidepad            = 10;       /* horizontal padding of bar */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systrayonleft = 1;
 static const unsigned int systrayspacing = 0;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray             = 1;   /* 0 means no systray */
+
+/* fonts */
 static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=10", "JoyPixels:size=10" };
 static const char dmenufont[]       = "JetBrainsMono Nerd Font:size=10";
+
+/* colors */
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
+static const char col_gray3[]       = "#ABB2BF";
+static const char col_gray4[]       = "#000000";
 static const char col_cyan[]        = "#005577";
-static const unsigned int baralpha = 0xd0;
-static const unsigned int borderalpha = OPAQUE;
+static const char col_white[]        = "#ffffff";
+static const char col_norm_border[]   = "#5C6370";
+static const char col_sel_border[]    = "#FFFFFF";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeSel]  = { col_white, col_white,  col_sel_border  },
+	[SchemeNorm] = { col_white, col_gray4, col_norm_border }, // Systray background
+	/* [SchemeStatus]  = { col_white, col_gray4,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty} */
+	/* [SchemeTagsSel]  = { col_white, col_gray4,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty} */
+	/* [SchemeTagsNorm]  = { col_gray3, col_gray4,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty} */
+	/* [SchemeInfoSel]  = { col_white, col_gray4,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty} */
+	/* [SchemeInfoNorm]  = { col_white, col_gray4,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty} */
 };
+
+/* alpha */
+static const unsigned int baralpha = 0.0 * OPAQUE;
+static const unsigned int borderalpha = 1.0 * OPAQUE;
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
 	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
 	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+	/* [SchemeStatus] = { OPAQUE, baralpha, borderalpha }, */
+	/* [SchemeTagsSel]  = { OPAQUE, baralpha, borderalpha }, */
+	/* [SchemeTagsNorm] = { OPAQUE, baralpha, borderalpha }, */
+	/* [SchemeInfoSel]  = { OPAQUE, baralpha, borderalpha }, */
+	/* [SchemeInfoNorm] = { OPAQUE, baralpha, borderalpha }, */
 };
 
 static const char *const autostart[] = {
