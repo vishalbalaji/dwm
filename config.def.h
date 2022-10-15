@@ -24,8 +24,6 @@ static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=10", "JoyP
 static const char dmenufont[]       = "JetBrainsMono Nerd Font:size=10";
 
 /* colors */
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#ABB2BF";
 static const char col_gray4[]       = "#000000";
 static const char col_cyan[]        = "#005577";
@@ -36,11 +34,11 @@ static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeSel]  = { col_white, col_white,  col_sel_border  },
 	[SchemeNorm] = { col_white, col_gray4, col_norm_border }, // Systray background
-	[SchemeStatus]  = { col_white, col_gray4,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
-	[SchemeTagsSel]  = { col_white, col_gray4,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
-	[SchemeTagsNorm]  = { col_gray3, col_gray4,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-	[SchemeInfoSel]  = { col_white, col_gray4,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
-	[SchemeInfoNorm]  = { col_white, col_gray4,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+	[SchemeStatus]  = { col_white, col_gray4,  col_gray4  }, // Statusbar right {text,background,not used but cannot be empty}
+	[SchemeTagsSel]  = { col_white, col_gray4,  col_gray4  }, // Tagbar left selected {text,background,not used but cannot be empty}
+	[SchemeTagsNorm]  = { col_gray3, col_gray4,  col_gray4  }, // Tagbar left unselected {text,background,not used but cannot be empty}
+	[SchemeInfoSel]  = { col_white, col_gray4,  col_gray4  }, // infobar middle  selected {text,background,not used but cannot be empty}
+	[SchemeInfoNorm]  = { col_white, col_gray4,  col_gray4  }, // infobar middle  unselected {text,background,not used but cannot be empty}
 };
 
 /* alpha */
@@ -128,12 +126,7 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
-
-/* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+/* #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } } */
 
 #include "movestack.c"
 static Key keys[] = {
@@ -189,7 +182,6 @@ static Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button1,        spawn,          {.v = statuscmd } },
-	{ ClkStatusText,        0,              Button3,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
