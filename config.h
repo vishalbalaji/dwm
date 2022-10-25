@@ -24,21 +24,23 @@ static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=10", "JoyP
 static const char dmenufont[]       = "JetBrainsMono Nerd Font:size=10";
 
 /* colors */
-static const char col_gray3[]       = "#ABB2BF";
-static const char col_gray4[]       = "#000000";
-static const char col_cyan[]        = "#005577";
-static const char col_white[]        = "#ffffff";
-static const char col_norm_border[]   = "#5C6370";
-static const char col_sel_border[]    = "#FFFFFF";
+static const char bar_bg[]       = "#000000";
+
+static const char norm[]       = "#7f849c";
+static const char active[]        = "#cdd6f4";
+
+static const char col_norm_border[]   = "#7f849c";
+static const char col_sel_border[]    = "#cdd6f4";
+
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeSel]  = { col_white, col_white,  col_sel_border  },
-	[SchemeNorm] = { col_white, col_gray4, col_norm_border }, // Systray background
-	[SchemeStatus]  = { col_white, col_gray4,  col_gray4  }, // Statusbar right {text,background,not used but cannot be empty}
-	[SchemeTagsSel]  = { col_white, col_gray4,  col_gray4  }, // Tagbar left selected {text,background,not used but cannot be empty}
-	[SchemeTagsNorm]  = { col_gray3, col_gray4,  col_gray4  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-	[SchemeInfoSel]  = { col_white, col_gray4,  col_gray4  }, // infobar middle  selected {text,background,not used but cannot be empty}
-	[SchemeInfoNorm]  = { col_white, col_gray4,  col_gray4  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+	[SchemeSel]  = { active, active,  col_sel_border  },
+	[SchemeNorm] = { active, bar_bg, col_norm_border }, // Systray background
+	[SchemeStatus]  = { active, bar_bg,  bar_bg  }, // Statusbar right {text,background,not used but cannot be empty}
+	[SchemeTagsSel]  = { active, bar_bg,  bar_bg  }, // Tagbar left selected {text,background,not used but cannot be empty}
+	[SchemeTagsNorm]  = { norm, bar_bg,  bar_bg  }, // Tagbar left unselected {text,background,not used but cannot be empty}
+	[SchemeInfoSel]  = { active, bar_bg,  bar_bg  }, // infobar middle  selected {text,background,not used but cannot be empty}
+	[SchemeInfoNorm]  = { active, bar_bg,  bar_bg  }, // infobar middle  unselected {text,background,not used but cannot be empty}
 };
 
 /* alpha */
@@ -100,6 +102,7 @@ static const Rule rules[] = {
 	{ "Lxappearance",    "lxappearance", NULL,           0,        1, -1 },
 	{ "Yad",             "yad",          "Attach files", 0,        1, -1 },
 	{ "Yad",             "yad",          "Save",         0,        1, -1 },
+	{ "Yad",             "yad",          "Password",         0,        1, -1 },
 	{ "zoom",            "zoom",         "Zoom Meeting", 0,        0, -1 },
 	{ "zoom",            "zoom",         "zoom",         0,        1, -1 },
 };
@@ -156,7 +159,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	/* { MODKEY,                       XK_x,      movecenter,     {0} }, */
 	{ MODKEY,                             XK_grave,  togglescratch,  {.ui = 0 } },
 	{ MODKEY,                             XK_7,      setborderpx,    {.i = -1 } },
 	{ MODKEY,                             XK_8,      setborderpx,    {.i = +1 } },
