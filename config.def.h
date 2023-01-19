@@ -20,8 +20,11 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray             = 1;   /* 0 means no systray */
 
 /* fonts */
-static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=10", "JoyPixels:size=10" };
-static const char dmenufont[]       = "JetBrainsMono Nerd Font:size=10";
+static const char *fonts[]          = { "JetBrains Mono:size=10", "JetBrainsMono Nerd Font Mono:size=14:antialias=true:autohint=true", "JoyPixels:size=10" };
+static const char dmenufont[]       = "JetBrainsMono Nerd Font Mono:size=10";
+
+// static const char *fonts[]          = { "JetBrains Mono:size=10", "JoyPixels:size=10" };
+// static const char dmenufont[]       = "JetBrains Mono:size=10";
 
 /* colors */
 static const char bar_bg[]       = "#000000";
