@@ -29,11 +29,13 @@ static const char dmenufont[]       = "JetBrainsMono Nerd Font Mono:size=10";
 /* colors */
 static const char bar_bg[]       = "#000000";
 
-static const char norm[]       = "#7f849c";
-static const char active[]        = "#cdd6f4";
+static const char norm[]       = "#b3b9b8";
+// static const char active[]        = "#dadada";
+static const char active[]        = "#ffffff";
 
-static const char col_norm_border[]   = "#7f849c";
-static const char col_sel_border[]    = "#cdd6f4";
+static const char col_norm_border[]   = "#b3b9b8";
+// static const char col_sel_border[]    = "#dadada";
+static const char col_sel_border[]    = "#ffffff";
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
