@@ -284,8 +284,8 @@ static const Key keys[] = {
 	{ MODKEY,                             XK_period, focusmon,         {.i = +1 } },
 	{ MODKEY|ShiftMask,                   XK_comma,  tagmon,           {.i = -1 } },
 	{ MODKEY|ShiftMask,                   XK_period, tagmon,           {.i = +1 } },
-	{ MODKEY|Mod4Mask|ControlMask,        XK_comma,  tagswapmon,       {.i = +1 } },
-	{ MODKEY|Mod4Mask|ControlMask,        XK_period, tagswapmon,       {.i = -1 } },
+	{ MODKEY|ControlMask,                 XK_comma,  tagswapmon,       {.i = +1 } },
+	{ MODKEY|ControlMask,                 XK_period, tagswapmon,       {.i = -1 } },
 	TAGKEYS(                        XK_1, 0)
 	TAGKEYS(                        XK_2, 1)
 	TAGKEYS(                        XK_3, 2)
@@ -301,7 +301,7 @@ static const Key keys[] = {
 static const char *statusdatecmd[] = { 
 	"sh",
 	"-c",
-	"notify-send -h string:x-canonical-private-synchronous:date \"  $(date '+%A, %d %B %Y')\"",
+	"notify-send -h string:x-canonical-private-synchronous:date \"󰃮  $(date '+%A, %d %B %Y')\"",
 	NULL
 };
 
