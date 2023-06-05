@@ -19,6 +19,7 @@
 #include "pertag.h"
 #include "restartsig.h"
 #include "scratchpad.h"
+#include "setborderpx.h"
 #include "sticky.h"
 #include "tagswapmon.h"
 #include "togglefullscreen.h"

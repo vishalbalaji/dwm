@@ -18,6 +18,7 @@
 #include "pertag.c"
 #include "restartsig.c"
 #include "scratchpad.c"
+#include "setborderpx.c"
 #include "sticky.c"
 #include "tagswapmon.c"
 #include "togglefullscreen.c"

@@ -247,6 +247,13 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 
+void toggleborder(const Arg *_)
+{
+	Monitor *m = selmon;
+	Arg arg = { .i = 0 };
+	if (m->borderpx == 0) arg.i = borderpx;
+	setborderpx(&arg);
+}
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -263,8 +270,9 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,                   XK_j,      movestack,        {.i = +1 } },
 	{ MODKEY|ShiftMask,                   XK_k,      movestack,        {.i = -1 } },
 	{ MODKEY|ShiftMask,                   XK_Return, zoom,             {0} },
-	{ MODKEY|Mod4Mask,                    XK_equal,  togglegaps,       {0} },
-	{ MODKEY|Mod4Mask|ShiftMask,          XK_equal,  defaultgaps,      {0} },
+	{ MODKEY,                             XK_equal,  togglegaps,       {0} },
+	{ MODKEY|ShiftMask,                   XK_equal,  defaultgaps,      {0} },
+	{ MODKEY,                             XK_minus,  toggleborder,     {0} },
 	{ MODKEY,                             XK_Tab,    view,             {0} },
 	{ MODKEY|ShiftMask,                   XK_q,      killclient,       {0} }, // restartsig
 	{ MODKEY|ShiftMask,                   XK_r,      quit,             {1} },
@@ -322,5 +330,6 @@ static const Button buttons[] = {
 	{ ClkTagBar,            MODKEY,              Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,              Button3,        toggletag,      {0} },
 };
+
 
 

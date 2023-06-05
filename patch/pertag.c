@@ -6,7 +6,7 @@ struct Pertag {
 	unsigned int sellts[NUMTAGS + 1]; /* selected layouts */
 	int showbars[NUMTAGS + 1]; /* display bar for the current tag */
 	int enablegaps[NUMTAGS + 1];
-	unsigned int gaps[NUMTAGS + 1];
+	int gaps[NUMTAGS + 1];
 };
 
 void
