@@ -13,6 +13,7 @@
 /* Other patches */
 #include "attachx.c"
 #include "cool_autostart.c"
+#include "focusmaster.c"
 #include "focusurgent.c"
 #include "movestack.c"
 #include "pertag.c"
@@ -24,7 +25,9 @@
 #include "togglefullscreen.c"
 #include "vanitygaps.c"
 #include "warp.c"
+#include "zoomswap.c"
 #include "dragmfact.c"
+#include "seamless_restart.c"
 /* Layouts */
 #include "layout_facts.c"
 #include "layout_monocle.c"

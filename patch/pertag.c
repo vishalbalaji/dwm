@@ -5,6 +5,7 @@ struct Pertag {
 	float mfacts[NUMTAGS + 1]; /* mfacts per tag */
 	unsigned int sellts[NUMTAGS + 1]; /* selected layouts */
 	int showbars[NUMTAGS + 1]; /* display bar for the current tag */
+	Client *prevzooms[NUMTAGS + 1]; /* store zoom information */
 	int enablegaps[NUMTAGS + 1];
 	int gaps[NUMTAGS + 1];
 };
