@@ -255,16 +255,23 @@ void toggleborder(const Arg *_)
 	setborderpx(&arg);
 }
 
+void togglezenmode(const Arg *arg)
+{
+	togglebar(arg);
+	togglegaps(arg);
+}
+
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 static const Key keys[] = {
 	/* modifier                     key            function                argument */
 	{ MODKEY,                             XK_b,      togglebar,        {0} },
+	{ MODKEY,                             XK_z,      togglezenmode,        {0} },
 	{ MODKEY,                             XK_j,      focusstack,       {.i = +1 } },
 	{ MODKEY,                             XK_k,      focusstack,       {.i = -1 } },
 	{ MODKEY,                             XK_i,      incnmaster,       {.i = +1 } },
-	{ MODKEY,                             XK_d,      incnmaster,       {.i = -1 } },
+	{ MODKEY|ShiftMask,                   XK_i,      incnmaster,       {.i = -1 } },
 	{ MODKEY,                             XK_h,      setmfact,         {.f = -0.05} },
 	{ MODKEY,                             XK_l,      setmfact,         {.f = +0.05} },
 	{ MODKEY|ShiftMask,                   XK_j,      movestack,        {.i = +1 } },
